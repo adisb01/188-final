@@ -1,0 +1,44 @@
+version: "3"
+services:
+  react-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - mern-app
+    depends_on:
+      - api-server
+    tty: true
+  api-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+    volumes:
+      - ./server/src:/usr/app/src
+    environment:
+      WAIT_HOSTS: mongo:27017
+      MONGO_URI: mongodb://mongo:27017/cinema
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.6.19-xenial
+    hostname: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  mern-app:
+volumes:
+  mongo-data:
+    driver: local

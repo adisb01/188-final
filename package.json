@@ -1,0 +1,8 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:adisb01/188-final.git",
+  "author": "Adi Bhati <aditya.bhati2001@gmail.com>",
+  "license": "MIT"
+}
